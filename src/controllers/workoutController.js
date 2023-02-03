@@ -1,8 +1,11 @@
 const workoutService = require("../services/workoutService");
 
 const getAllWorkouts = (req, res) => {
+  //get filter query parameters in URL
+  const {mode} = req.query
+  console.log(mode)
   try {
-    const allWorkouts = workoutService.getAllWorkouts();
+    const allWorkouts = workoutService.getAllWorkouts({mode});
     res.send({ status: "OK", data: allWorkouts });
   } catch (error) {
     res
@@ -12,6 +15,7 @@ const getAllWorkouts = (req, res) => {
 };
 
 const getOneWorkout = (req, res) => {
+  // get query parameters in URL
   const {
     params: { workoutId },
   } = req;
@@ -32,6 +36,7 @@ const getOneWorkout = (req, res) => {
 };
 
 const createNewWorkout = (req, res) => {
+  // get request payload in request.
   const { body } = req;
   if (
     !body.name ||
